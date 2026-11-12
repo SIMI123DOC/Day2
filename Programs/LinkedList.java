@@ -1,11 +1,11 @@
 
 package Programs;
 
-class Node {
+class LinkedListNode {
     int data;
-    Node next;
+    LinkedListNode next;
 
-    Node(int data) {
+    LinkedListNode(int data) {
         this.data = data;
         this.next = null;
     }
@@ -13,11 +13,10 @@ class Node {
 
 public class LinkedList {
 
-    Node head = null;
+    LinkedListNode head = null;
 
-    
     void addAtBeginning(int data) {
-        Node ptr = new Node(data);
+        LinkedListNode ptr = new LinkedListNode(data);
 
         if (head == null) {
             head = ptr;
@@ -28,14 +27,14 @@ public class LinkedList {
     }
 
     void addAtLast(int data) {
-        Node ptr = new Node(data);
+        LinkedListNode ptr = new LinkedListNode(data);
 
         if (head == null) {
             head = ptr;
             return;
         }
 
-        Node temp = head;
+        LinkedListNode temp = head;
 
         while (temp.next != null) {
             temp = temp.next;
@@ -44,7 +43,6 @@ public class LinkedList {
         temp.next = ptr;
     }
 
-    
     void insertAtPosition(int data, int pos) {
         if (pos < 1) {
             System.out.println("Invalid position");
@@ -56,8 +54,8 @@ public class LinkedList {
             return;
         }
 
-        Node ptr = new Node(data);
-        Node temp = head;
+        LinkedListNode ptr = new LinkedListNode(data);
+        LinkedListNode temp = head;
 
         for (int i = 1; i < pos - 1 && temp != null; i++) {
             temp = temp.next;
@@ -72,6 +70,25 @@ public class LinkedList {
         temp.next = ptr;
     }
 
+    // Find Middle Node
+    void showMiddleNode() {
+
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+
+        LinkedListNode slow = head;
+        LinkedListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        System.out.println("Middle Node: " + slow.data);
+    }
+
     void deleteAtBeginning() {
         if (head == null) {
             System.out.println("List is empty");
@@ -81,7 +98,6 @@ public class LinkedList {
         head = head.next;
     }
 
-    
     void deleteAtEnd() {
         if (head == null) {
             System.out.println("List is empty");
@@ -93,8 +109,8 @@ public class LinkedList {
             return;
         }
 
-        Node temp = head;
-        Node save = null;
+        LinkedListNode temp = head;
+        LinkedListNode save = null;
 
         while (temp.next != null) {
             save = temp;
@@ -104,7 +120,6 @@ public class LinkedList {
         save.next = null;
     }
 
-   
     void deleteAtPosition(int pos) {
         if (head == null || pos < 1) {
             System.out.println("Invalid position");
@@ -116,7 +131,7 @@ public class LinkedList {
             return;
         }
 
-        Node temp = head;
+        LinkedListNode temp = head;
 
         for (int i = 1; i < pos - 1 && temp != null; i++) {
             temp = temp.next;
@@ -127,12 +142,12 @@ public class LinkedList {
             return;
         }
 
-        Node save = temp.next;
+        LinkedListNode save = temp.next;
         temp.next = save.next;
     }
 
     void show() {
-        Node temp = head;
+        LinkedListNode temp = head;
 
         while (temp != null) {
             System.out.print(temp.data + " -> ");
@@ -143,6 +158,7 @@ public class LinkedList {
     }
 
     public static void main(String[] args) {
+
         LinkedList list = new LinkedList();
 
         list.addAtLast(10);
@@ -154,6 +170,7 @@ public class LinkedList {
 
         System.out.println("Before deletion:");
         list.show();
+        list.showMiddleNode();
 
         list.deleteAtEnd();
         list.deleteAtPosition(2);
@@ -161,5 +178,6 @@ public class LinkedList {
 
         System.out.println("After deletion:");
         list.show();
+        list.showMiddleNode();
     }
 }
